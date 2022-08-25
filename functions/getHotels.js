@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 
-exports.handler = async function (event) {
+exports.handler = async function () {
 
     const query = `
         query {
