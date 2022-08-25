@@ -1,18 +1,36 @@
+import { useState, useEffect } from 'react';
 
-function App() {
+const App = () => {
+
+  const [hotels, setHotels] = useState([]);
+
+  const fetcData = async () => {
+
+    const response = await fetch('/.netlify/functions/getHotels')
+    const responseBody = await response.json()
+    setHotels(responseBody.data.hotelData.values)
+
+  }
+
+  useEffect(() => {
+    fetcData()
+  }, [])
+
+  console.log(hotels)
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <div >
+      <h1>My Hotels</h1>
+      {hotels?.map(hotel => (
+        <div className='hotel' key={hotel.id}>
+          <h2>Hotel Name : <span style={{color : "blue"}}>{hotel.name}</span></h2>
+          <h3>Rating : <span style={{color : "blue"}}>{hotel.name}</span></h3>
+        </div>
+      ))}
 
-        <img src="https://imgcy.trivago.com/c_lfill,d_dummy.jpeg,e_sharpen:60,f_auto,h_450,q_auto,w_450/itemimages/96/95/96959_v6.jpeg" className="App-logo" alt="logo" />
 
-        <br>
-        </br>
-        <p>
-          Hotels Project With Graph QL
-          I used DataStax AstraDB for the database.
-        </p>
-      </header>  
     </div>
   );
 }
